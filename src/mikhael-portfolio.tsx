@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Phone, MapPin, Download, ChevronDown, Server, Cloud, Code, Database, Monitor, Shield, Terminal, Zap, BookOpen, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, MapPin, Download, ChevronDown, Server, Cloud, Code, Database, Monitor, Shield, Terminal, Zap, BookOpen, ExternalLink, Calendar, MessageCircle } from 'lucide-react';
+
+// Add this import at the top of the file (outside the component)
+//import MikhaelPhoto from './Me.jpg'; // Adjust path as needed
 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -41,11 +44,11 @@ const Portfolio = () => {
 
   const handleDownloadCV = () => {
     // Option 1: Download from a URL (replace with your actual CV URL)
-    const cvUrl = 'https://example.com/your-cv.pdf'; // Replace with your actual CV URL
+    const cvUrl = '/Mikhael_Youhanna_DevOps_Engineer_Resume.pdf'; // Replace with your actual CV URL
     
     // Option 2: For now, let's create a mock download
     const link = document.createElement('a');
-    link.href = '#'; // Replace with actual CV URL when available
+    link.href = '/Mikhael_Youhanna_DevOps_Engineer_Resume.pdf'; // Replace with actual CV URL when available
     link.download = 'Mikhael_Youhanna_DevOps_Engineer_Resume.pdf';
     
     // Create a temporary notification
@@ -100,7 +103,7 @@ const Portfolio = () => {
     }, 3000);
     
     // Uncomment the line below when you have an actual CV URL
-    // link.click();
+    link.click();
   };
 
   const skills = [
@@ -116,7 +119,7 @@ const Portfolio = () => {
     {
       title: 'Site Reliability Engineer',
       company: 'Giza Systems',
-      period: '09/2024 – Present',
+      period: '09/2024 — Present',
       location: 'Cairo',
       highlights: [
         'Assist in building and maintaining CI/CD pipelines using Jenkins and GitHub Actions to automate software deployment, testing, and delivery processes, resulting in 30% faster releases',
@@ -133,7 +136,7 @@ const Portfolio = () => {
     {
       title: 'Datacenter Operations Engineer',
       company: 'Link Datacenter',
-      period: '07/2024 – 09/2024',
+      period: '07/2024 — 09/2024',
       location: 'Cairo',
       highlights: [
         'Maintained and monitored servers, backups, system logs, and Infrastructure Support',
@@ -145,7 +148,7 @@ const Portfolio = () => {
     {
       title: 'System Administrator',
       company: 'Kobry El Kobba Medical Complex',
-      period: '06/2023 – 06/2024',
+      period: '06/2023 — 06/2024',
       location: 'Cairo (Military Service)',
       highlights: [
         'Installed and maintained all server hardware and software systems',
@@ -166,7 +169,7 @@ const Portfolio = () => {
 
   const professionalCertifications = [
     {
-      name: 'Google Cloud Certified – Professional Cloud Architect',
+      name: 'Google Cloud Certified — Professional Cloud Architect',
       issuer: 'Google Cloud',
       link: 'https://www.credly.com/badges/0c7f6971-793e-472f-b25a-c29490f4af00/linked_in_profile',
       status: 'active'
@@ -218,17 +221,25 @@ const Portfolio = () => {
               Mikhael Sarkies
             </div>
             <div className="hidden md:flex space-x-8">
-              {['hero', 'about', 'experience', 'skills', 'projects', 'contact'].map((section) => (
+              {[
+                { id: 'hero', label: 'Hero' },
+                { id: 'about', label: 'About' },
+                { id: 'experience', label: 'Experience' },
+                { id: 'skills', label: 'Skills' },
+                { id: 'projects', label: 'Projects' },
+                { id: 'whats-next', label: "What's Next?" },
+                { id: 'contact', label: 'Contact' }
+              ].map((section) => (
                 <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`capitalize transition-all duration-300 px-4 py-2 rounded-lg relative overflow-hidden ${
-                    activeSection === section 
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className={`transition-all duration-300 px-4 py-2 rounded-lg relative overflow-hidden ${
+                    activeSection === section.id 
                       ? 'text-blue-400 bg-blue-400/10 shadow-lg' 
                       : 'text-gray-300 hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  {section}
+                  {section.label}
                 </button>
               ))}
             </div>
@@ -257,8 +268,20 @@ const Portfolio = () => {
         
         <div className="relative z-10 text-center px-6 animate-fade-in">
           <div className="mb-8">
-            <div className="w-32 h-32 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-4xl font-bold shadow-2xl animate-bounce hover:scale-110 transition-transform duration-300">
-              MY
+            <div className="w-32 h-32 mx-auto rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 overflow-hidden relative group border-4 border-blue-500/50">
+              <img 
+                src="/Me.jpg"
+                alt="Mikhael Sarkies - DevOps Engineer" 
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                onLoad={() => console.log('Image loaded successfully')}
+                onError={(e) => {
+                  console.log('Image failed to load, showing fallback');
+                  e.target.nextSibling.style.display = 'flex';
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-4xl font-bold">
+                MS
+              </div>
             </div>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
@@ -307,7 +330,7 @@ const Portfolio = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-gray-300 leading-relaxed hover:text-white transition-colors duration-300">
-                I'm a dynamic and enthusiastic SRE/DevOps/Cloud Engineer with expertise in cloud infrastructure 
+                I'm a dynamic and enthusiastic SRE/DevOps/Cloud Engineer born on January 11th, 2000, with expertise in cloud infrastructure 
                 automation, containerization, and CI/CD pipelines. My passion lies in streamlining workflows 
                 and enhancing system reliability through innovative solutions.
               </p>
@@ -315,14 +338,28 @@ const Portfolio = () => {
                 With a strong foundation in Linux system administration, Kubernetes, and modern DevOps tools, 
                 I'm committed to continuous learning and driving operational excellence in dynamic tech environments.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-                <div className="flex items-center space-x-3 p-4 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1">
-                  <MapPin className="text-blue-400" size={20} />
-                  <span>Shobra, Egypt</span>
+              <div className="space-y-4 mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <a 
+                    href="https://maps.app.goo.gl/qH1zZRGkTZK7QxLz6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center space-x-3 p-4 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group"
+                  >
+                    <MapPin className="text-blue-400 group-hover:text-blue-300 transition-colors" size={20} />
+                    <span className="group-hover:text-white transition-colors">Shobra, Egypt</span>
+                  </a>
+                  <a 
+                    href="tel:+201200513381"
+                    className="flex items-center justify-center space-x-3 p-4 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group"
+                  >
+                    <Phone className="text-green-400 group-hover:text-green-300 transition-colors" size={20} />
+                    <span className="group-hover:text-white transition-colors">(+20) 1200513381</span>
+                  </a>
                 </div>
-                <div className="flex items-center space-x-3 p-4 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1">
-                  <Phone className="text-blue-400" size={20} />
-                  <span>(+20) 1200513381</span>
+                <div className="flex items-center justify-center space-x-3 p-4 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1 max-w-sm mx-auto">
+                  <Calendar className="text-purple-400" size={20} />
+                  <span>Jan 11, 2000</span>
                 </div>
               </div>
             </div>
@@ -334,7 +371,7 @@ const Portfolio = () => {
                 <div className="text-center">
                   <div className="text-lg font-medium text-blue-400 mb-2">Bachelor's in Computer Science</div>
                   <div className="text-gray-400 mb-1">Cairo University</div>
-                  <div className="text-sm text-gray-500 mb-4">2018 – 2022</div>
+                  <div className="text-sm text-gray-500 mb-4">2018 — 2022</div>
                   <div className="bg-gradient-to-r from-green-400/20 to-blue-500/20 rounded-lg p-4 border border-green-400/30">
                     <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent font-semibold">
                       Graduation Project: A+ Grade
@@ -578,6 +615,144 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* What's Next Section */}
+      <section id="whats-next" className="py-20 px-6 relative">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            What's Next?
+          </h2>
+          <p className="text-lg text-gray-300 text-center mb-12 max-w-3xl mx-auto hover:text-white transition-colors duration-300">
+            Continuous learning is at the heart of technology. Here are the key areas I'm focusing on to advance my expertise 
+            and stay at the forefront of modern DevOps and cloud technologies.
+          </p>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'DevSecOps',
+                icon: Shield,
+                description: 'Integrating security practices into DevOps workflows, implementing security as code, and building secure CI/CD pipelines.',
+                color: 'from-red-500 to-pink-500',
+                bgColor: 'red-500/20',
+                borderColor: 'red-500/50'
+              },
+              {
+                title: 'AI/ML & MLOps',
+                icon: Zap,
+                description: 'Exploring machine learning operations, model deployment automation, and AI-driven infrastructure optimization.',
+                color: 'from-green-500 to-emerald-500',
+                bgColor: 'green-500/20',
+                borderColor: 'green-500/50'
+              },
+              {
+                title: 'Zabbix',
+                icon: Monitor,
+                description: 'Advanced monitoring and alerting systems, network monitoring, and comprehensive infrastructure observability.',
+                color: 'from-blue-500 to-cyan-500',
+                bgColor: 'blue-500/20',
+                borderColor: 'blue-500/50'
+              },
+              {
+                title: 'Mastering OpenShift',
+                icon: Server,
+                description: 'Deep diving into enterprise Kubernetes, advanced container orchestration, and Red Hat OpenShift ecosystem.',
+                color: 'from-purple-500 to-violet-500',
+                bgColor: 'purple-500/20',
+                borderColor: 'purple-500/50'
+              },
+              {
+                title: 'Design Patterns',
+                icon: Code,
+                description: 'Software architecture patterns, microservices design patterns, and cloud-native application development principles.',
+                color: 'from-yellow-500 to-orange-500',
+                bgColor: 'yellow-500/20',
+                borderColor: 'yellow-500/50'
+              }
+            ].map((item, index) => (
+              <div 
+                key={index} 
+                className={`bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-${item.borderColor.split('/')[0]}/50 transition-all duration-500 transform hover:-translate-y-3 hover:shadow-2xl group ${
+                  index === 4 ? 'md:col-span-2 lg:col-span-1 lg:col-start-2' : ''
+                }`}
+                style={{ 
+                  opacity: 0,
+                  animation: `fadeInUp 0.8s ease-out ${index * 0.15}s forwards`
+                }}
+              >
+                <div className="flex items-center space-x-4 mb-6">
+                  <div className={`p-4 bg-${item.bgColor} rounded-xl group-hover:bg-${item.bgColor} transition-colors duration-300 border border-${item.borderColor} group-hover:scale-110 transform transition-transform`}>
+                    <item.icon className="text-2xl group-hover:scale-110 transition-transform duration-300" size={32} style={{
+                      background: `linear-gradient(to right, ${item.color.includes('red') ? '#ef4444, #ec4899' : 
+                                 item.color.includes('green') ? '#10b981, #059669' : 
+                                 item.color.includes('blue') ? '#3b82f6, #06b6d4' : 
+                                 item.color.includes('purple') ? '#8b5cf6, #7c3aed' : 
+                                 '#f59e0b, #f97316'})`,
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }} />
+                  </div>
+                  <h3 className="text-xl font-bold group-hover:scale-105 transition-transform duration-300" style={{
+                    background: `linear-gradient(to right, ${item.color.includes('red') ? '#ef4444, #ec4899' : 
+                               item.color.includes('green') ? '#10b981, #059669' : 
+                               item.color.includes('blue') ? '#3b82f6, #06b6d4' : 
+                               item.color.includes('purple') ? '#8b5cf6, #7c3aed' : 
+                               '#f59e0b, #f97316'})`,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }}>
+                    {item.title}
+                  </h3>
+                </div>
+                
+                <p className="text-gray-300 leading-relaxed hover:text-white transition-colors duration-300 text-sm">
+                  {item.description}
+                </p>
+                
+                <div className="mt-6 flex items-center justify-between">
+                  <div className="h-1 rounded-full transition-all duration-1000 group-hover:w-full opacity-60" 
+                       style={{ 
+                         width: `${30 + (index * 15)}%`,
+                         background: `linear-gradient(to right, ${item.color.includes('red') ? '#ef4444, #ec4899' : 
+                                    item.color.includes('green') ? '#10b981, #059669' : 
+                                    item.color.includes('blue') ? '#3b82f6, #06b6d4' : 
+                                    item.color.includes('purple') ? '#8b5cf6, #7c3aed' : 
+                                    '#f59e0b, #f97316'})`
+                       }}></div>
+                  <span className="text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{
+                    background: `linear-gradient(to right, ${item.color.includes('red') ? '#ef4444, #ec4899' : 
+                               item.color.includes('green') ? '#10b981, #059669' : 
+                               item.color.includes('blue') ? '#3b82f6, #06b6d4' : 
+                               item.color.includes('purple') ? '#8b5cf6, #7c3aed' : 
+                               '#f59e0b, #f97316'})`,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }}>
+                    Learning in Progress
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-16 text-center">
+            <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-blue-500/30 backdrop-blur-sm hover:border-blue-400/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl max-w-2xl mx-auto">
+              <div className="flex items-center justify-center mb-4">
+                <div className="p-3 bg-blue-500/20 rounded-full">
+                  <BookOpen className="text-blue-400" size={32} />
+                </div>
+              </div>
+              <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                Continuous Learning Journey
+              </h3>
+              <p className="text-gray-300 hover:text-white transition-colors duration-300">
+                Technology evolves rapidly, and so do I. These focus areas represent my commitment to staying ahead 
+                of industry trends and delivering cutting-edge solutions that drive business value.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="py-20 px-6 relative">
         <div className="max-w-4xl mx-auto text-center">
@@ -663,6 +838,46 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
+
+      {/* Floating WhatsApp Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <div className="relative group">
+          {/* Tooltip */}
+          <div className="absolute bottom-16 right-0 transform translate-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+            <div className="bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg border border-gray-600 whitespace-nowrap relative">
+              <span className="text-sm font-medium">Click here for WhatsApp</span>
+              {/* Arrow */}
+              <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800"></div>
+            </div>
+          </div>
+          
+          {/* WhatsApp Button */}
+          <a
+            href="https://wa.me/201200513381"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative flex items-center justify-center w-14 h-14 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-110 group-hover:rotate-12 overflow-hidden"
+          >
+            {/* Pulse animation rings */}
+            <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-75"></div>
+            <div className="absolute inset-0 rounded-full bg-green-500 animate-pulse opacity-50 scale-110"></div>
+            
+            {/* WhatsApp Icon */}
+            <MessageCircle 
+              size={28} 
+              className="text-white z-10 relative group-hover:scale-110 transition-transform duration-300"
+            />
+            
+            {/* Shine effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 skew-x-12"></div>
+          </a>
+          
+          {/* Floating notification badge */}
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center animate-bounce">
+            <span className="text-white text-xs font-bold">1</span>
+          </div>
+        </div>
+      </div>
 
       {/* Footer */}
       <footer className="bg-gray-800 py-8 px-6 border-t border-gray-700">
